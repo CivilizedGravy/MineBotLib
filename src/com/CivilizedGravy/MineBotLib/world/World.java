@@ -14,8 +14,8 @@ import org.spacehq.mc.protocol.data.game.ShortArray3d;
 
 import com.CivilizedGravy.MineBotLib.Minebot;
 import com.CivilizedGravy.MineBotLib.entity.Player;
-import com.CivilizedGravy.MineBotLib.entity.minesha.BoundingBox;
 import com.CivilizedGravy.MineBotLib.entity.minesha.Location;
+import com.CivilizedGravy.MineBotLib.util.AABB;
 
 /**
  * 
@@ -82,7 +82,7 @@ public class World {
 		int blockZ = z - (ChunkZ * 16);
 		// System.out.println("blockX = " + blockX + " blockY = " + blockY +
 		// " blockZ = " + blockZ);
-		BoundingBox blockBounds = new BoundingBox(x, y, z, x + 1, y + 1, z + 1);
+		AABB blockBounds = AABB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
 		Location location = new Location(x, y, z);
 		List<Integer> key = Arrays.asList(ChunkX, ChunkZ);
 		if (chunkCache.containsKey(key) && ChunkY <= 15 && ChunkY >= 0) {

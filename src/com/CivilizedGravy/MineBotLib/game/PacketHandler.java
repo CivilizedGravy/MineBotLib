@@ -47,8 +47,8 @@ import com.CivilizedGravy.MineBotLib.Minebot;
 import com.CivilizedGravy.MineBotLib.entity.Entity;
 import com.CivilizedGravy.MineBotLib.entity.LivingEntity;
 import com.CivilizedGravy.MineBotLib.entity.Player;
-import com.CivilizedGravy.MineBotLib.entity.minesha.BoundingBox;
 import com.CivilizedGravy.MineBotLib.entity.minesha.Location;
+import com.CivilizedGravy.MineBotLib.util.AABB;
 
 public class PacketHandler implements SessionListener {
 
@@ -118,8 +118,8 @@ public class PacketHandler implements SessionListener {
 			double z = ((ServerSpawnPositionPacket) recv).getPosition().getZ();
 			bot.setLocation(x, y, z);
 			bot.setMovement(0, 0, 0);
-			bot.setPlayerbounds(new BoundingBox(x - 0.3, y + 1.62, z + 0.3,
-					0.6, 1.8, 0.6));
+			bot.playerbounds = AABB.getBoundingBox(x - 0.3, y + 1.8, z - 0.3,
+					0.6, 1.8, 0.6);
 			event.getSession().send(
 					new ClientPlayerPositionPacket(bot.isOnGround(), x, y, z));
 

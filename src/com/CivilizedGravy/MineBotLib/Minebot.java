@@ -25,37 +25,37 @@ import org.spacehq.packetlib.tcp.TcpSessionFactory;
 
 import com.CivilizedGravy.MineBotLib.entity.Entity;
 import com.CivilizedGravy.MineBotLib.entity.Player;
-import com.CivilizedGravy.MineBotLib.entity.minesha.BoundingBox;
 import com.CivilizedGravy.MineBotLib.game.Chat;
 import com.CivilizedGravy.MineBotLib.game.PacketHandler;
+import com.CivilizedGravy.MineBotLib.util.AABB;
 import com.CivilizedGravy.MineBotLib.world.World;
 
 public class Minebot extends Player {
 
-	private String host;
-	private int port;
-	private String username;
-	private String password;
-	private MinecraftProtocol protocol;
-	private Client client;
-	private Player master;
-	private String masterName;
-	private HashMap<UUID, Player> players;
-	private HashMap<Integer, Entity> visibleEntities;
-	private Difficulty difficulty = Difficulty.EASY;
-	private GameMode gamemode = GameMode.SURVIVAL;
-	private int dimension;
-	private boolean isHardcore;
-	private int maxPlayers;
-	private WorldType worldtype;
-	private Chat chat;
-	private World world;
-	private boolean isMasterFound = false;
-	private ServerStatusInfo serverInfo;
-	private boolean isInitialized = false;
-	private float health = 10;
-	private int food = 10;
-	private BoundingBox playerbounds;
+	public String host;
+	public int port;
+	public String username;
+	public String password;
+	public MinecraftProtocol protocol;
+	public Client client;
+	public Player master;
+	public String masterName;
+	public HashMap<UUID, Player> players;
+	public HashMap<Integer, Entity> visibleEntities;
+	public Difficulty difficulty = Difficulty.EASY;
+	public GameMode gamemode = GameMode.SURVIVAL;
+	public int dimension;
+	public boolean isHardcore;
+	public int maxPlayers;
+	public WorldType worldtype;
+	public Chat chat;
+	public World world;
+	public boolean isMasterFound = false;
+	public ServerStatusInfo serverInfo;
+	public boolean isInitialized = false;
+	public float health = 10;
+	public int food = 10;
+	public AABB playerbounds;
 
 	// Figure out
 
@@ -217,15 +217,8 @@ public class Minebot extends Player {
 		return world;
 	}
 
-	public BoundingBox getPlayerbounds() {
-		return playerbounds;
-	}
 
-	public void setPlayerbounds(BoundingBox playerbounds) {
-		this.playerbounds = playerbounds;
-	}
-
-	private void findMaster() {
+	public void findMaster() {
 		while (!isMasterFound) {
 			if (!players.isEmpty()) {
 				for (UUID id : players.keySet()) {
@@ -333,15 +326,15 @@ public class Minebot extends Player {
 					pitch = getLocation().getPitch();
 
 					if (playerbounds != null) {
-						playerbounds.setMinX(x - 0.3);
-						playerbounds.setMinY(y + 1.8);
-						playerbounds.setMinZ(z - 0.3);
+						playerbounds.minX = x - 0.3;
+						playerbounds.minY = y + 1.8;
+						playerbounds.minZ = z - 0.3;
 					}
 
 					if (world.getChunkCache().size() > 200) {// 0.6×1.8
 						if (getWorld().getPlayerBlock(getPlayer()).getId() != 0
 								&& !getWorld().getPlayerBlock(getPlayer())
-										.getBounds().intersects(playerbounds)) {
+										.getBounds().intersectsWith(playerbounds)) {
 							setOnGround(true);
 						} else {
 							setOnGround(false);
